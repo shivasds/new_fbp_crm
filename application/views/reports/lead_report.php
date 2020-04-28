@@ -5,6 +5,24 @@
     else
         $this->load->view('inc/header');    
 ?>
+<style>
+.offset-2{
+    margin-left:30px;
+}
+.display-lead{
+    border: 1px solid #aaa;
+    padding: 5px;
+}
+.display-lead td {
+    border: 1px solid #aaa;
+    padding: 5px;
+}
+.target{
+    color: #002561;
+    font-weight: bold; 
+}
+</style>
+
 <body>
 	 <div class="se-pre-con"></div>
    <div class="page-container">
@@ -101,6 +119,9 @@
 						<th>Sl.No</th>
 						<th>Advisor</th>
 						<th>No. of callbacks Assigned</th>
+                        <th class="hidden">key</th>
+                        <th class="hidden" >fromDate</th>
+                        <th class="hidden">todate</th>
                          
 					</tr>
 				</thead>
@@ -114,10 +135,16 @@
 						 	<tr>
 						 		<td><?php echo $i; ?></td>
 						 		<td><?php echo $name; ?></td>
-						 		<td><?=$value?>  </td> 
-                                 <td><?=$key?></td>
-                                 <div id="ls<?=$key?>" hidden></div>
-                              
+						 		<td class="target" onclick="getrowvalue(this)"><?=$value?> </td> 
+                                 <!-- <td><?=$key?></td> -->
+                                 <td class="hidden" id ="key"><?=$key?></td>
+                                 <div class="hidden" id="ls<?=$key?>"></div>
+                                 <td class="hidden">
+                                 <?=$this->input->get('fromDate');?>                              
+                                 </td>
+                                 <td class="hidden">
+                                 <?=$this->input->get('toDate');?>                              
+                                 </td>
                                 
                                  </tr>
                              
@@ -134,8 +161,101 @@
 				</tbody>
 			</table>
     	</div>
-	    	
-		<div class="col-md-4">
+	    	<script>
+           function getrowvalue(id){
+           var trid = $(id).parent('tr').children();
+           var a=$(trid)[3];
+             var userid= $(a).text();
+             var fromDate=$($(trid)[4]).text();
+             var toDate=$($(trid)[5]).text();
+             $("#customer_detail").empty();
+             $("#customer-theadtr").empty();
+             var tbody='';
+             var theadtr='';
+             
+             $.ajax({
+                 "Type":"GET",
+                  "url":'http://'+window.location.host+'/admin/lead_report?user_id='+userid+'&fromDate='+fromDate+'&toDate='+toDate,
+                  success: function (response) {
+                      var data=JSON.parse(response)
+                     var thead= Object.keys(data[0])
+                     for(j=0;j<=thead.length-1;j++){
+                        theadtr+='<th>'+thead[j]+'</th>'
+                     }
+                      $("#customer-theadtr").append(theadtr);
+                    for(i=0;i<=data.length-1;i++){
+                        
+                    tbody +='<tr><td>'+data[i].lead_source_id+'</td><td class="target" onclick="get_lead_source_id(this)">'+data[i].count+'</td><td>'+data[i].user_id+'</td><td>'+fromDate+'</td><td>'+toDate+'</td></tr>'
+                }
+                $("#customer_detail").append(tbody)
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+             })
+               
+                
+           
+             }
+
+             function get_lead_source_id(id){
+                // $(".display-lead").hide();
+                var trid = $(id).parent('tr').children();
+                var fromDate=$($(trid)[3]).text();
+                var toDate=$($(trid)[4]).text();
+                var lead_source_id=$($(trid)[0]).text();
+                var user_id=$($(trid)[2]).text();
+               
+                $("#customer_detail").empty();
+                $("#customer-theadtr").empty();
+             var tbody='';
+             var theadtr='';
+                $.ajax({
+                 "Type":"GET",
+                 "url":'http://'+window.location.host+'/admin/lead_report?user_id='+user_id+'&fromDate='+fromDate+'&toDate='+toDate+'&lead_source_id='+lead_source_id,
+                  success: function (response) {
+                      var data=JSON.parse(response)
+                      console.log(data)
+                      var thead= Object.keys(data[0])
+                     for(j=0;j<=thead.length-1;j++){
+                        theadtr+='<th>'+thead[j]+'</th>'
+                     }
+                      $("#customer-theadtr").append(theadtr);
+                    for(i=0;i<=data.length-1;i++){
+                    tbody +='<tr><td>'+data[i].project_id+'</td><td>'+data[i].user_id+'</td><td><a href=""  target="_blank">'+data[i].count+'</a></td><td>'+lead_source_id+'</td><td>'+fromDate+'</td><td>'+toDate+'</td></tr>'
+                }
+                $("#customer_detail").append(tbody)
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
+                }
+             })
+             }
+
+         
+            </script>
+
+            
+    <div class="offset-2 col-md-5">
+            <table class="display-lead" cellspacing="0" width="100%">
+				<thead id="customer-thead">
+					<tr id="customer-theadtr">
+						<!-- <th>Lead Source</th>
+						<th>Count</th>
+                        <th>key</th>
+                        <th>fromdate</th>
+                        <th>todate</th> -->
+					</tr>
+				</thead>
+				<tbody id="customer_detail"> </tbody>
+			</table>
+     </div>
+
+     
+   
+
+
+		<!-- <div class="col-md-4">
             <table class="display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
@@ -203,8 +323,9 @@
                     <?php } ?>
                 </tbody>
             </table>
-		</div>
+		</div> -->
     </div>
+
 		
 </div>
 </body>

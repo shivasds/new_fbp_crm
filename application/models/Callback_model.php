@@ -1327,11 +1327,11 @@ $list_id=implode(',', $ids);
     {
       if($lead_source_id==''&& $project_id=='')
         {
-            $sql = "SELECT lead_source_id, COUNT(*) as count FROM `callback` WHERE user_id=$user_id and date(date_added) >= '$fromDate' and date(date_added)<='$toDate' GROUP by lead_source_id";
+            $sql = "SELECT lead_source_id,user_id, COUNT(*) as count FROM `callback` WHERE user_id=$user_id and date(date_added) >= '$fromDate' and date(date_added)<='$toDate' GROUP by lead_source_id";
         }
-        elseif($lead_source_id!=''&& $project_id='')
+        elseif($lead_source_id!=''&& $project_id=='')
         {
-            $sql = "SELECT project_id, COUNT(*) as count FROM `callback` WHERE user_id=$user_id and lead_source_id=$lead_source_id and date(date_added) >= '$fromDate' and date(date_added)<='$toDate' GROUP by project_id";
+            $sql = "SELECT project_id,user_id, COUNT(*) as count FROM `callback` WHERE user_id=$user_id and lead_source_id=$lead_source_id and date(date_added) >= '$fromDate' and date(date_added)<='$toDate' GROUP by project_id";
         }
         else {
             $sql ="SELECT * FROM `callback` WHERE user_id=$user_id and lead_source_id=$lead_source_id and project_id = $project_id and date(date_added) >= '$fromDate' and date(date_added)<='$toDate'";
