@@ -101,6 +101,7 @@
 						<th>Sl.No</th>
 						<th>Advisor</th>
 						<th>No. of callbacks Assigned</th>
+                         
 					</tr>
 				</thead>
 				<tbody>
@@ -113,8 +114,13 @@
 						 	<tr>
 						 		<td><?php echo $i; ?></td>
 						 		<td><?php echo $name; ?></td>
-						 		<td><a href="<?php echo base_url().'view_callbacks?report='.urlencode($reportType).'&advisor='.urlencode($key).'&dept='.urlencode($dept).'&city='.urlencode($city).'&fromDate='.urlencode($fromDate).'&toDate='.urlencode($toDate); ?>"><?php echo $value; ?></a></td>
-						 	</tr>
+						 		<td><?=$value?>  </td> 
+                                 <td><?=$key?></td>
+                                 <div id="ls<?=$key?>" hidden></div>
+                              
+                                
+                                 </tr>
+                             
 						<?php $i++; } ?>
 						<tr>
 							<td colspan="2">Total</td>
@@ -130,72 +136,73 @@
     	</div>
 	    	
 		<div class="col-md-4">
-		<table class="display" cellspacing="0" width="100%">
-			<thead>
-				<tr>
-					<th>Sl.No</th>
-					<th>Project</th>
-					<th>No. of callbacks Assigned</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if(count($projects)>0){
-					$i = 1;
-					$total = 0;
-					foreach ($projects as $key => $value) { 
-						$name = $this->common_model->get_project_name($key); 
-						$total += $value; ?>
-					 	<tr>
-					 		<td><?php echo $i; ?></td>
-					 		<td><?php echo $name; ?></td>
-					 		<td><a href="<?php echo base_url().'view_callbacks?report='.urlencode($reportType).'&project='.urlencode($key).'&dept='.urlencode($dept).'&city='.urlencode($city).'&fromDate='.urlencode($fromDate).'&toDate='.urlencode($toDate); ?>"><?php echo $value; ?></a></td>
-					 	</tr>
-					<?php $i++; } ?>
-					<tr>
-						<td colspan="2">Total</td>
-						<td><a href="<?php echo base_url().'view_callbacks?report='.urlencode($reportType).'&dept='.urlencode($dept).'&city='.urlencode($city).'&fromDate='.urlencode($fromDate).'&toDate='.urlencode($toDate); ?>"><?php echo $total; ?></a></td>
-					</tr>
-				<?php } else { ?>
-					<tr>
-						<td colspan="3"> No entries </td>
-					</tr>
-				<?php } ?>
-			</tbody>
-		</table>
+            <table class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th>Project</th>
+                        <th>No. of callbacks Assigned</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if(count($projects)>0){
+                        $i = 1;
+                        $total = 0;
+                        foreach ($projects as $key => $value) { 
+                            $name = $this->common_model->get_project_name($key); 
+                            $total += $value; ?>
+                            <tr>
+                                <td><?php echo $i; ?></td>
+                                <td><?php echo $name; ?></td>
+                                <td><a href="<?php echo base_url().'view_callbacks?report='.urlencode($reportType).'&project='.urlencode($key).'&dept='.urlencode($dept).'&city='.urlencode($city).'&fromDate='.urlencode($fromDate).'&toDate='.urlencode($toDate); ?>"><?php echo $value; ?></a></td>
+                            </tr>
+                        <?php $i++; } ?>
+                        <tr>
+                            <td colspan="2">Total</td>
+                            <td><a href="<?php echo base_url().'view_callbacks?report='.urlencode($reportType).'&dept='.urlencode($dept).'&city='.urlencode($city).'&fromDate='.urlencode($fromDate).'&toDate='.urlencode($toDate); ?>"><?php echo $total; ?></a></td>
+                        </tr>
+                    <?php } else { ?>
+                        <tr>
+                            <td colspan="3"> No entries </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
 		</div>
+
 		<div class="col-md-4">
-		<table class="display" cellspacing="0" width="100%">
-			<thead>
-				<tr>
-					<th>Sl.No</th>
-					<th>Lead Source</th>
-					<th>No. of callbacks Assigned</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php if(count($lead_sources)>0){
-					$i = 1;
-					$total = 0;
-					foreach ($lead_sources as $key => $value) { 
-						$name = $this->common_model->get_leadsource_name($key);
-						$total += $value; ?>
-					 	<tr>
-					 		<td><?php echo $i; ?></td>
-					 		<td><?php echo $name; ?></td>
-					 		<td><a href="<?php echo base_url().'view_callbacks?report='.urlencode($reportType).'&lead_source='.urlencode($key).'&dept='.urlencode($dept).'&city='.urlencode($city).'&fromDate='.urlencode($fromDate).'&toDate='.urlencode($toDate); ?>"><?php echo $value; ?></a></td>
-					 	</tr>
-					<?php $i++; } ?>
-					<tr>
-						<td colspan="2">Total</td>
-						<td><a href="<?php echo base_url().'view_callbacks?report='.urlencode($reportType).'&dept='.urlencode($dept).'&city='.urlencode($city).'&fromDate='.urlencode($fromDate).'&toDate='.urlencode($toDate); ?>"><?php echo $total; ?></a></td>
-					</tr>
-				<?php } else { ?>
-					<tr>
-						<td colspan="3"> No entries </td>
-					</tr>
-				<?php } ?>
-			</tbody>
-		</table>
+            <table class="display" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th>Sl.No</th>
+                        <th>Lead Source</th>
+                        <th>No. of callbacks Assigned</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if(count($lead_sources)>0){
+                        $i = 1;
+                        $total = 0;
+                        foreach ($lead_sources as $key => $value) { 
+                            $name = $this->common_model->get_leadsource_name($key);
+                            $total += $value; ?>
+                            <tr>
+                                <td><?php echo $i; ?></td>
+                                <td><?php echo $name; ?></td>
+                                <td><a href="<?php echo base_url().'view_callbacks?report='.urlencode($reportType).'&lead_source='.urlencode($key).'&dept='.urlencode($dept).'&city='.urlencode($city).'&fromDate='.urlencode($fromDate).'&toDate='.urlencode($toDate); ?>"><?php echo $value; ?></a></td>
+                            </tr>
+                        <?php $i++; } ?>
+                        <tr>
+                            <td colspan="2">Total</td>
+                            <td><a href="<?php echo base_url().'view_callbacks?report='.urlencode($reportType).'&dept='.urlencode($dept).'&city='.urlencode($city).'&fromDate='.urlencode($fromDate).'&toDate='.urlencode($toDate); ?>"><?php echo $total; ?></a></td>
+                        </tr>
+                    <?php } else { ?>
+                        <tr>
+                            <td colspan="3"> No entries </td>
+                        </tr>
+                    <?php } ?>
+                </tbody>
+            </table>
 		</div>
     </div>
 		
