@@ -175,7 +175,7 @@
              
              $.ajax({
                  "Type":"GET",
-                  "url":'http://'+window.location.host+'/admin/lead_report?user_id='+userid+'&fromDate='+fromDate+'&toDate='+toDate,
+                  "url":'https://'+window.location.host+'/admin/lead_report?user_id='+userid+'&fromDate='+fromDate+'&toDate='+toDate,
                   success: function (response) {
                       var data=JSON.parse(response)
                      var thead= Object.keys(data[0])
@@ -213,7 +213,7 @@
              var theadtr='';
                 $.ajax({
                  "Type":"GET",
-                 "url":'http://'+window.location.host+'/admin/lead_report?user_id='+user_id+'&fromDate='+fromDate+'&toDate='+toDate+'&lead_source_id='+lead_source_id,
+                 "url":'https://'+window.location.host+'/admin/lead_report?user_id='+user_id+'&fromDate='+fromDate+'&toDate='+toDate+'&lead_source_id='+lead_source_id,
                   success: function (response) {
                       var data=JSON.parse(response)
                       console.log(data)
@@ -224,7 +224,7 @@
                      theadtr+='<th>Count</th><th>Project Name</th>';
                       $("#customer-theadtr").append(theadtr);
                     for(i=0;i<=data.length-1;i++){
-                    	var url_of_project = 'http://'+window.location.host+'/admin/lead_report?user_id='+user_id+'&fromDate='+fromDate+'&toDate='+toDate+'&lead_source_id='+lead_source_id+'&project_id='+data[i].project_id;
+                    	var url_of_project = 'https://'+window.location.host+'/admin/lead_report?user_id='+user_id+'&fromDate='+fromDate+'&toDate='+toDate+'&lead_source_id='+lead_source_id+'&project_id='+data[i].project_id;
                     tbody +='<tr><td style="display:none;">'+data[i].project_id+'</td><td style="display:none;">'+data[i].user_id+'</td><td><a href="'+url_of_project+'"  target="_blank">'+data[i].count+'</a></td><td style="display:none;">'+lead_source_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td><td>'+data[i].project+'</td></tr>'
                 }
                 $("#customer_detail").append(tbody)
