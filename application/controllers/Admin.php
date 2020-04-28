@@ -3391,6 +3391,22 @@ public function make_user_online($value='')
 		//print_r($data);
 		$this->load->view('reports/re_site_visit_by_id',$data);
 	}
+
+	public function lead_report($fromDate='',$toDate='',$user_id='',$lead_source_id='',$project_id='')
+	{
+		$fromDate = $this->input->get_post('fromDate');
+		$toDate = $this->input->get_post('toDate');
+		$user_id = $this->input->get_post('user_id');
+		$lead_source_id = $this->input->get_post('lead_source_id');
+		$project_id = $this->input->get_post('project_id');
+		$result= $this->callback_model->get_lead_report($fromDate,$toDate,$user_id,$lead_source_id,$project_id);
+		echo json_encode($result);
+		if($lead_source_id!=''&& $project_id!='')
+		{
+			$data['result'] = $result;
+			$this->load->view('reports/new_lead_report',$data);
+		}
+	}
 	 
 
 }

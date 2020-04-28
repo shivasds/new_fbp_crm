@@ -1323,4 +1323,22 @@ $list_id=implode(',', $ids);
 
         return $query->result_array();
     }
+    public function get_lead_report($fromDate='',$toDate='',$user_id='',$lead_source_id='',$project_id='')
+    {
+      if($lead_source_id==''&& $project_id=='')
+        {
+            $sql = "SELECT lead_source_id, COUNT(*) as count FROM `callback` WHERE user_id=$user_id and date(date_added) >= '$fromDate' and date(date_added)<='$toDate' GROUP by lead_source_id";
+        }
+        elseif($lead_source_id!=''&& $project_id='')
+        {
+            $sql = "SELECT project_id, COUNT(*) as count FROM `callback` WHERE user_id=$user_id and lead_source_id=$lead_source_id and date(date_added) >= '$fromDate' and date(date_added)<='$toDate' GROUP by project_id";
+        }
+        else {
+            $sql ="SELECT * FROM `callback` WHERE user_id=$user_id and lead_source_id=$lead_source_id and project_id = $project_id and date(date_added) >= '$fromDate' and date(date_added)<='$toDate'";
+        } 
+
+         $query = $this->db->query($sql);
+
+        return $query->result_array();
+    }
 }
