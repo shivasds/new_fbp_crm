@@ -179,13 +179,14 @@
                   success: function (response) {
                       var data=JSON.parse(response)
                      var thead= Object.keys(data[0])
-                     for(j=0;j<=thead.length-1;j++){
-                        theadtr+='<th>'+thead[j]+'</th>'
-                     }
+                     // for(j=0;j<=thead.length-1;j++){
+                     //    theadtr+='<th>'+thead[j]+'</th>'
+                     // }
+                     theadtr+='<th>Count</th><th>Lead Source</th>'; 
                       $("#customer-theadtr").append(theadtr);
                     for(i=0;i<=data.length-1;i++){
                         
-                    tbody +='<tr><td>'+data[i].lead_source_id+'</td><td class="target" onclick="get_lead_source_id(this)">'+data[i].count+'</td><td>'+data[i].user_id+'</td><td>'+fromDate+'</td><td>'+toDate+'</td></tr>'
+                    tbody +='<tr><td style="display:none;">'+data[i].lead_source_id+'</td><td class="target" onclick="get_lead_source_id(this)">'+data[i].count+'</td><td style="display:none;">'+data[i].user_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td><td>'+data[i].lead_source+'</td></tr>'
                 }
                 $("#customer_detail").append(tbody)
                 },
@@ -217,12 +218,14 @@
                       var data=JSON.parse(response)
                       console.log(data)
                       var thead= Object.keys(data[0])
-                     for(j=0;j<=thead.length-1;j++){
-                        theadtr+='<th>'+thead[j]+'</th>'
-                     }
+                     // for(j=0;j<=thead.length-1;j++){
+                     //    theadtr+='<th>'+thead[j]+'</th>'
+                     // }
+                     theadtr+='<th>Count</th><th>Project Name</th>';
                       $("#customer-theadtr").append(theadtr);
                     for(i=0;i<=data.length-1;i++){
-                    tbody +='<tr><td>'+data[i].project_id+'</td><td>'+data[i].user_id+'</td><td><a href=""  target="_blank">'+data[i].count+'</a></td><td>'+lead_source_id+'</td><td>'+fromDate+'</td><td>'+toDate+'</td></tr>'
+                    	var url_of_project = 'http://'+window.location.host+'/admin/lead_report?user_id='+user_id+'&fromDate='+fromDate+'&toDate='+toDate+'&lead_source_id='+lead_source_id+'&project_id='+data[i].project_id;
+                    tbody +='<tr><td style="display:none;">'+data[i].project_id+'</td><td style="display:none;">'+data[i].user_id+'</td><td><a href="'+url_of_project+'"  target="_blank">'+data[i].count+'</a></td><td style="display:none;">'+lead_source_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td><td>'+data[i].project+'</td></tr>'
                 }
                 $("#customer_detail").append(tbody)
                 },

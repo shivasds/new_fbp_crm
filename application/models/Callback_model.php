@@ -1327,18 +1327,18 @@ $list_id=implode(',', $ids);
     {
       if($lead_source_id==''&& $project_id=='')
         {
-            $sql = "SELECT lead_source_id,user_id, COUNT(*) as count FROM `callback` WHERE user_id=$user_id and date(date_added) >= '$fromDate' and date(date_added)<='$toDate' GROUP by lead_source_id";
+            $sql = "SELECT cb.lead_source_id, cb.user_id, COUNT(*) as count, ls.name as lead_source FROM `callback` cb inner join  lead_source ls on cb.lead_source_id = ls.id  WHERE cb.user_id=$user_id and date(cb.date_added) >= '$fromDate' and date(cb.date_added)<='$toDate' GROUP by cb.lead_source_id";
         }
         elseif($lead_source_id!=''&& $project_id=='')
         {
-            $sql = "SELECT project_id,user_id, COUNT(*) as count FROM `callback` WHERE user_id=$user_id and lead_source_id=$lead_source_id and date(date_added) >= '$fromDate' and date(date_added)<='$toDate' GROUP by project_id";
+            $sql = "SELECT cb.project_id,cb.user_id, COUNT(*) as count,p.name as project FROM `callback` cb inner join  project p on cb.project_id = p.id WHERE cb.user_id=$user_id and cb.lead_source_id=$lead_source_id and date(cb.date_added) >= '$fromDate' and date(cb.date_added)<='$toDate' GROUP by cb.project_id";
         }
         else {
-            $sql ="SELECT * FROM `callback` WHERE user_id=$user_id and lead_source_id=$lead_source_id and project_id = $project_id and date(date_added) >= '$fromDate' and date(date_added)<='$toDate'";
+            $sql ="SELECT cb.*, s.name as status, p.name as project FROM `callback` cb inner join status s on  cb.status_id = s.id inner join project p on cb.project_id = p.id  WHERE cb.user_id=$user_id and cb.lead_source_id=$lead_source_id and cb.project_id = $project_id and date(cb.date_added) >= '$fromDate' and date(cb.date_added)<='$toDate'";
         } 
 
          $query = $this->db->query($sql);
 
-        return $query->result_array();
+        return $query->result();
     }
 }
