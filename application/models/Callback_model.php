@@ -1327,14 +1327,14 @@ $list_id=implode(',', $ids);
     {
       if($lead_source_id==''&& $project_id=='')
         {
-            $sql = "SELECT cb.lead_source_id, cb.user_id, COUNT(*) as count, ls.name as lead_source FROM `callback` cb inner join  lead_source ls on cb.lead_source_id = ls.id  WHERE cb.user_id=$user_id and date(cb.date_added) >= '$fromDate' and date(cb.date_added)<='$toDate' GROUP by cb.lead_source_id";
+            $sql = "SELECT cb.lead_source_id, cb.user_id, COUNT(*) as count, ls.name as lead_source, concat(u.first_name,' ',u.last_name) as user_name FROM `callback` cb inner join  lead_source ls on cb.lead_source_id = ls.id  inner join user u on cb.user_id = u.id WHERE cb.user_id=$user_id and date(cb.date_added) >= '$fromDate' and date(cb.date_added)<='$toDate' GROUP by cb.lead_source_id";
         }
         elseif($lead_source_id!=''&& $project_id=='')
         {
-            $sql = "SELECT cb.project_id,cb.user_id, COUNT(*) as count,p.name as project FROM `callback` cb inner join  project p on cb.project_id = p.id WHERE cb.user_id=$user_id and cb.lead_source_id=$lead_source_id and date(cb.date_added) >= '$fromDate' and date(cb.date_added)<='$toDate' GROUP by cb.project_id";
+            $sql = "SELECT cb.project_id,cb.user_id, COUNT(*) as count,p.name as project, concat(u.first_name,' ',u.last_name) as user_name FROM `callback` cb inner join  project p on cb.project_id = p.id inner join user u on cb.user_id = u.id WHERE cb.user_id=$user_id and cb.lead_source_id=$lead_source_id and date(cb.date_added) >= '$fromDate' and date(cb.date_added)<='$toDate' GROUP by cb.project_id";
         }
         else {
-            $sql ="SELECT cb.*, s.name as status, p.name as project FROM `callback` cb inner join status s on  cb.status_id = s.id inner join project p on cb.project_id = p.id  WHERE cb.user_id=$user_id and cb.lead_source_id=$lead_source_id and cb.project_id = $project_id and date(cb.date_added) >= '$fromDate' and date(cb.date_added)<='$toDate'";
+            $sql ="SELECT cb.*, s.name as status_name, p.name as project_name, l.name as lead_source_name, concat(u.first_name,' ',u.last_name) as user_name, b.name as broker_name FROM `callback` cb inner join status s on  cb.status_id = s.id inner join project p on cb.project_id = p.id inner join lead_source l on cb.lead_source_id = l.id inner join user u on cb.user_id = u.id inner join broker b on cb.broker_id = b.id WHERE cb.user_id=$user_id and cb.lead_source_id=$lead_source_id and cb.project_id = $project_id and date(cb.date_added) >= '$fromDate' and date(cb.date_added)<='$toDate'";
         } 
 
          $query = $this->db->query($sql);

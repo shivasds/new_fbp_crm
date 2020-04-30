@@ -222,19 +222,19 @@ $(document).ready(function(){
 //});
 </script>
 <script type="text/javascript">
-     window.setInterval(function(){
-                $.ajax({
-                          //dataType : "json",
-                          url: 'make_user_online',
-                          success:function(data)
-                          {
-                         // alert('user is actice');
-                          },
-                          error: function (jqXHR, status, err) {
-                             //alert('Local error callback');
-                          }
-                    }); 
-}, 5000);
+//      window.setInterval(function(){
+//                 $.ajax({
+//                           //dataType : "json",
+//                           url: 'make_user_online',
+//                           success:function(data)
+//                           {
+//                          // alert('user is actice');
+//                           },
+//                           error: function (jqXHR, status, err) {
+//                              //alert('Local error callback');
+//                           }
+//                     }); 
+// }, 5000);
           window.setInterval(function(){
                 $.ajax({
                           //dataType : "json",
