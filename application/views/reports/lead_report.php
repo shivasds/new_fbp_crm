@@ -6,10 +6,10 @@
         $this->load->view('inc/header');    
 ?>
 <style>
-.offset-2{
+/* .offset-2{
     margin-left:30px;
-}
-.display-lead{
+} */
+.display-lead,.display{
     border: 1px solid #aaa;
     padding: 5px;
 }
@@ -17,9 +17,13 @@
     border: 1px solid #aaa;
     padding: 5px;
 }
-.target{
+.target, .target a{
     color: #002561;
     font-weight: bold; 
+}
+#prdusername,#csmrusername{
+    text-align: center;
+    font-weight: bold;
 }
 </style>
 
@@ -169,7 +173,7 @@
              var fromDate=$($(trid)[4]).text();
              var toDate=$($(trid)[5]).text();
              $("#customer_detail").empty();
-             $("#customer-theadtr").empty();
+             
              var tbody='';
              var theadtr='';
              
@@ -182,21 +186,21 @@
                      // for(j=0;j<=thead.length-1;j++){
                      //    theadtr+='<th>'+thead[j]+'</th>'
                      // }
-                     theadtr+='<tr><th colspan=2>'+data[0].user_name+'</th></tr><tr><th>Count</th><th>Lead Source</th></tr>'; 
-                      $("#customer-theadtr").append(theadtr);
+                     $("#csmrusername").text(data[0].user_name)
+                    //  theadtr+='<tr><th colspan=2>'+data[0].user_name+'</th></tr><tr><th>Count</th><th>Lead Source</th></tr>'; 
+                    //   $("#customer-theadtr").append(theadtr);
                     for(i=0;i<=data.length-1;i++){
                         
                     tbody +='<tr><td style="display:none;">'+data[i].lead_source_id+'</td><td class="target" onclick="get_lead_source_id(this)" style="cursor: pointer;">'+data[i].count+'</td><td style="display:none;">'+data[i].user_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td><td>'+data[i].lead_source+'</td></tr>'
                 }
                 $("#customer_detail").append(tbody)
+                $("#dispalycmr").removeClass('hidden');
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.log(textStatus, errorThrown);
                 }
              })
-               
-                
-           
+            
              }
 
              function get_lead_source_id(id){
@@ -207,8 +211,8 @@
                 var lead_source_id=$($(trid)[0]).text();
                 var user_id=$($(trid)[2]).text();
                
-                $("#customer_detail").empty();
-                $("#customer-theadtr").empty();
+                $("#product_detail").empty();
+                $("#product-theadtr").empty();
              var tbody='';
              var theadtr='';
                 $.ajax({
@@ -221,13 +225,15 @@
                      // for(j=0;j<=thead.length-1;j++){
                      //    theadtr+='<th>'+thead[j]+'</th>'
                      // }
-                     theadtr+='<tr><th colspan=2>'+data[0].user_name+'</th></tr><tr><th>Count</th><th>Project Name</th></tr>';
-                      $("#customer-theadtr").append(theadtr);
+                     $("#prdusername").text(data[0].user_name)
+                    //  theadtr+='<tr><th colspan=2>'+data[0].user_name+'</th></tr><tr><th>Count</th><th>Project Name</th></tr>';
+                    //   $("#product-theadtr").append(theadtr);
                     for(i=0;i<=data.length-1;i++){
                     	var url_of_project = 'http://'+window.location.host+'/admin/lead_report?user_id='+user_id+'&fromDate='+fromDate+'&toDate='+toDate+'&lead_source_id='+lead_source_id+'&project_id='+data[i].project_id;
-                    tbody +='<tr><td style="display:none;">'+data[i].project_id+'</td><td style="display:none;">'+data[i].user_id+'</td><td><a href="'+url_of_project+'"  target="_blank" style="cursor: pointer;">'+data[i].count+'</a></td><td style="display:none;">'+lead_source_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td><td>'+data[i].project+'</td></tr>'
+                    tbody +='<tr><td style="display:none;">'+data[i].project_id+'</td><td style="display:none;">'+data[i].user_id+'</td><td class="target"><a href="'+url_of_project+'"  target="_blank" style="cursor: pointer;">'+data[i].count+'</a></td><td style="display:none;">'+lead_source_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td><td>'+data[i].project+'</td></tr>'
                 }
-                $("#customer_detail").append(tbody)
+                $("#product_detail").append(tbody)
+                $("#dispalyprd").removeClass('hidden');
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.log(textStatus, errorThrown);
@@ -239,18 +245,31 @@
             </script>
 
             
-    <div class="offset-2 col-md-5">
-            <table class="display-lead" cellspacing="0" width="100%">
+    <div class="offset-2 col-md-4">
+            <table class="display-lead hidden" id="dispalycmr" cellspacing="0" width="100%">
+           
 				<thead id="customer-thead">
-					<tr id="customer-theadtr">
-						<!-- <th>Lead Source</th>
-						<th>Count</th>
-                        <th>key</th>
-                        <th>fromdate</th>
-                        <th>todate</th> -->
+					<tr><th colspan="2" id="csmrusername"></th></tr>
+                    <tr>
+                        <th>Count</th>
+                        <th>Lead Source</th>
 					</tr>
 				</thead>
 				<tbody id="customer_detail"> </tbody>
+			</table>
+     </div>
+
+     <div class="offset-2 col-md-4">
+            <table class="display-lead hidden" id="dispalyprd" cellspacing="0" width="100%">
+           
+				<thead id="product-thead">
+					<tr><th colspan="2" id="prdusername"></th></tr>
+                    <tr>
+                        <th>Count</th>
+                        <th>Project Name</th>
+					</tr>
+				</thead>
+				<tbody id="product_detail"> </tbody>
 			</table>
      </div>
 
