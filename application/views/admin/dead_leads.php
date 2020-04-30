@@ -323,6 +323,7 @@
                                 <option value="6" <?php if(($this->session->userdata("budget"))==6) echo 'selected' ?>>2 cr+</option>                                            
                     </select>
                 </div>
+                  
                  
                 <div class="col-sm-3 form-group">
                     <label for="p_type">Purchase Type:</label>
@@ -843,6 +844,87 @@
                         <label for="comment">Current Callbacks:</label>
                         <textarea class="form-control" name="notes" rows="3" id="current_callback1" name="current_callback1" onblur="curr(this.value)"></textarea>
                     </div>
+                     <div class="col-sm-3 form-group">
+                    <label for="budget">Budget:</label>
+                    <!-- <input type="text" class="form-control" id="budget" name="budget" placeholder="budget in lacs or crores*" value="" required=""> -->
+                    <select  class="form-control"  id="m_budget" name="budget"  >
+                                <option value="">Select</option>  
+                                <option value="1" >50 Lakhs</option>
+                                <option value="2" >50-65L</option>
+                                <option value="3" >65L-80L</option>
+                                <option value="4" >1-1.5cr</option>
+                                <option value="5" >1.5-2 cr</option>
+                                <option value="6" >2 cr+</option>                                            
+                    </select>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label for="City">City:</label>
+                    <input type="text" class="form-control" id="m_city" name="m_city" placeholder="City" value="" required="">
+                  
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label for="m_location">Location:</label>
+                    <input type="text" class="form-control" id="m_location" name="m_location" placeholder="budget in lacs or crores*" value="" required="">
+                     
+                </div>
+                 
+                <div class="col-sm-3 form-group">
+                    <label for="p_type">Purchase Type:</label>
+                    <!-- <input type="text" class="form-control" id="p_type" name="p_type" placeholder="Purchase Type*" value="" required=""> -->
+                    <select  class="form-control"  id="m_p_type" name="p_type" >
+                                <option value="">Select</option>  
+                                <option value="1">Apartment</option>
+                                <option value="2">Villas</option>
+                                <option value="3">Plots</option>
+                                <option value="4">Penthouse</option>     
+                                <option value="5">Duplex</option>     
+                                <option value="6">Commericial</option>                                        
+                    </select>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label for="possesion">Possesion:</label>
+                   <!--  <input type="text" class="form-control" id="possesion" name="possesion" placeholder="Possesion*" value="" required=""> -->
+                    <select  class="form-control"  id="m_possesion" name="possesion" >
+                                <option value="">Select</option>  
+                                <option value="1">RTM</option>
+                                <option value="2">1 Year</option>
+                                <option value="3">2 Year</option>
+                                <option value="4">New Launch</option>                                        
+                    </select>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label for="a_services">Additional Services:</label>
+                    <!-- <input type="text" class="form-control" id="a_services" name="a_services" placeholder="Additional Sevices*" value="" required=""> -->
+                     <select  class="form-control"  id="m_a_services" name="a_services" >
+                                <option value="">Select</option>  
+                                <option value="1">Site Visit Assitance</option>
+                                <option value="2">Loans</option>
+                                <option value="3">Interiors</option>
+                                <option value="4">Resale Assistance</option>     
+                                <option value="5">Rental Assistance</option>     
+                                <option value="6">NONE</option>                                        
+                    </select>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label for="tos">Type Of Sale:</label>
+                    <!-- <input type="text" class="form-control" id="tos" name="tos" placeholder="Type Of Sale*" value="" required=""> -->
+                     <select  class="form-control"  id="m_tos" name="tos" >
+                                <option value="">Select</option>  
+                                <option value="1">Primary</option>
+                                <option value="2">Resale</option>
+                                <option value="3">Rentals</option>                                            
+                    </select>
+                </div>
+                <div class="col-sm-3 form-group">
+                    <label for="client_type">Client Type:</label> 
+                    <select  class="form-control"  id="m_client_type" name="client_type">
+                                <option value="">Select</option>  
+                                <option value="1">Individual</option>
+                                <option value="2">Investor</option>
+                                            
+                    </select>
+                </div>
+                <div class="clearfix"></div>
                     <div class="col-sm-6 col-md-6 form-group">
                         <input type="checkbox" name="fancy-checkbox-success" onclick="reassignDate()"  id="fancy-checkbox-success" autocomplete="off" />
                         <div class="btn-group">
@@ -911,6 +993,7 @@
             
                                 </textarea>
                             </div>
+
                             <div class="col-sm-12 form-group">
                                 <div class="alert alert-success" id="regmail_success" style="display:none">
                                     <strong>Success!</strong> Email sent successfully.
@@ -1063,6 +1146,14 @@
     
                 $('#c_subSource').val(data.sub_broker);
                 $('#client_name').val(data.name);
+                $('#m_budget').val(data.budget);
+                $('#m_city').val(data.city);
+                $('#m_location').val(data.location);
+                $('#m_p_type').val(data.p_type);
+                $('#m_possesion').val(data.possesion);
+                $('#m_a_services').val(data.a_services);
+                $('#m_tos').val(data.tos);
+                $('#m_client_type').val(data.client_type); 
                 if(data.email1){
                     $('#client_email').val(data.email1);
                 }else{
