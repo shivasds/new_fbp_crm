@@ -135,7 +135,7 @@
 						 	<tr>
 						 		<td><?php echo $i; ?></td>
 						 		<td><?php echo $name; ?></td>
-						 		<td class="target" onclick="getrowvalue(this)"><?=$value?> </td> 
+						 		<td class="target" onclick="getrowvalue(this)" style="cursor: pointer;"><?=$value?> </td> 
                                  <!-- <td><?=$key?></td> -->
                                  <td class="hidden" id ="key"><?=$key?></td>
                                  <div class="hidden" id="ls<?=$key?>"></div>
@@ -186,7 +186,7 @@
                       $("#customer-theadtr").append(theadtr);
                     for(i=0;i<=data.length-1;i++){
                         
-                    tbody +='<tr><td style="display:none;">'+data[i].lead_source_id+'</td><td class="target" onclick="get_lead_source_id(this)">'+data[i].count+'</td><td style="display:none;">'+data[i].user_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td><td>'+data[i].lead_source+'</td></tr>'
+                    tbody +='<tr><td style="display:none;">'+data[i].lead_source_id+'</td><td class="target" onclick="get_lead_source_id(this)" style="cursor: pointer;">'+data[i].count+'</td><td style="display:none;">'+data[i].user_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td><td>'+data[i].lead_source+'</td></tr>'
                 }
                 $("#customer_detail").append(tbody)
                 },
@@ -221,11 +221,11 @@
                      // for(j=0;j<=thead.length-1;j++){
                      //    theadtr+='<th>'+thead[j]+'</th>'
                      // }
-                     theadtr+='<th>Count</th><th>Project Name</th>';
+                     theadtr+='<tr><th colspan=2>'+data[0].user_name+'</th></tr><tr><th>Count</th><th>Project Name</th></tr>';
                       $("#customer-theadtr").append(theadtr);
                     for(i=0;i<=data.length-1;i++){
                     	var url_of_project = 'http://'+window.location.host+'/admin/lead_report?user_id='+user_id+'&fromDate='+fromDate+'&toDate='+toDate+'&lead_source_id='+lead_source_id+'&project_id='+data[i].project_id;
-                    tbody +='<tr><td style="display:none;">'+data[i].project_id+'</td><td style="display:none;">'+data[i].user_id+'</td><td><a href="'+url_of_project+'"  target="_blank">'+data[i].count+'</a></td><td style="display:none;">'+lead_source_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td><td>'+data[i].project+'</td></tr>'
+                    tbody +='<tr><td style="display:none;">'+data[i].project_id+'</td><td style="display:none;">'+data[i].user_id+'</td><td><a href="'+url_of_project+'"  target="_blank" style="cursor: pointer;">'+data[i].count+'</a></td><td style="display:none;">'+lead_source_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td><td>'+data[i].project+'</td></tr>'
                 }
                 $("#customer_detail").append(tbody)
                 },
