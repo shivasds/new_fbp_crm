@@ -171,17 +171,18 @@
             
            var trid = $(id).parent('tr').children();
            var a=$(trid)[3];
-             var userid= $(a).text();
-             var fromDate=$($(trid)[4]).text();
-             var toDate=$($(trid)[5]).text();
+             var userid= $(a).text().trim();
+             var fromDate=$($(trid)[4]).text().trim();
+             var toDate=$($(trid)[5]).text().trim();
              $("#customer_detail").empty();
-             
+             var weburl=   'http://'+window.location.host+'/admin/lead_report?user_id='+userid+'&fromDate='+fromDate+'&toDate='+toDate
+             console.log(weburl);
              var tbody='';
              var theadtr='';
              
              $.ajax({
                  "Type":"GET",
-                  "url":'http://'+window.location.host+'/admin/lead_report?user_id='+userid+'&fromDate='+fromDate+'&toDate='+toDate,
+                  "url":' https://'+window.location.host+'/admin/lead_report?user_id='+userid+'&fromDate='+fromDate+'&toDate='+toDate,
                   success: function (response) {
                       var data=JSON.parse(response)
                      var thead= Object.keys(data[0])
@@ -208,10 +209,10 @@
              function get_lead_source_id(id){
                 // $(".display-lead").hide();
                 var trid = $(id).parent('tr').children();
-                var fromDate=$($(trid)[4]).text();
-                var toDate=$($(trid)[5]).text();
-                var lead_source_id=$($(trid)[0]).text();
-                var user_id=$($(trid)[3]).text();
+                var fromDate=$($(trid)[4]).text().trim();
+                var toDate=$($(trid)[5]).text().trim();
+                var lead_source_id=$($(trid)[0]).text().trim();
+                var user_id=$($(trid)[3]).text().trim();
                
                 $("#product_detail").empty();
                 $("#product-theadtr").empty();
@@ -219,7 +220,7 @@
              var theadtr='';
                 $.ajax({
                  "Type":"GET",
-                 "url":'http://'+window.location.host+'/admin/lead_report?user_id='+user_id+'&fromDate='+fromDate+'&toDate='+toDate+'&lead_source_id='+lead_source_id,
+                 "url":' https://'+window.location.host+'/admin/lead_report?user_id='+user_id+'&fromDate='+fromDate+'&toDate='+toDate+'&lead_source_id='+lead_source_id,
                   success: function (response) {
                       var data=JSON.parse(response)
                       console.log(data)
@@ -376,7 +377,7 @@
 
 									 <!--footer section start-->
 										<footer>
-										   <p>&copy <?= date('Y')?> Fullbasket Property . All Rights Reserved | Design by <a href="http://secondsdigital.com/" target="_blank">Seconds Digital Solutions.</a></p>
+										   <p>&copy <?= date('Y')?> Fullbasket Property . All Rights Reserved | Design by <a href=" https://secondsdigital.com/" target="_blank">Seconds Digital Solutions.</a></p>
 										</footer>
 									<!--footer section end-->
 								</div>
