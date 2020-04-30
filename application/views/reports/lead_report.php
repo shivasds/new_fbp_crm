@@ -167,6 +167,8 @@
     	</div>
 	    	<script>
            function getrowvalue(id){
+            $("#dispalyprd").addClass('hidden')
+            
            var trid = $(id).parent('tr').children();
            var a=$(trid)[3];
              var userid= $(a).text();
