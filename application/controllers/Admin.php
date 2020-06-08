@@ -961,7 +961,7 @@ $customer_req = array(
 			if($dead_reason!==null){
 				$this->session->set_userdata("dead_reason", $dead_reason);
 				if($dead_reason)
-					$where.=" AND cb.reason_cause=".trim($dead_reason);
+					$where.=" AND cb.reason_cause='".trim($dead_reason)."'";
 			}
 			
 			$srxhtxt = trim($this->input->post('srxhtxt'));
