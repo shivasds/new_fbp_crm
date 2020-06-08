@@ -191,9 +191,11 @@
                                     <i class="fa fa-home fa-2x"  title="Detail" style="color:#ff1122; font-size:21px;padding-right:7px;" aria-hidden="true"></i>
                                 </a>
                             </td>
-                            <td>
-                                <i class="fa fa-keyboard-o fa-2x" onclick="abc()" title="Notes" style="color:#ff1122; font-size:21px;padding-right:7px;" aria-hidden="true"></i>
-                            </td>
+                               <td>
+                                                <a onclick="abc('<?php echo $data->id; ?>')" data-toggle="modal" data-target="#modal_notes">
+                                                    <i class="fa fa-keyboard-o fa-2x" title="Notes" style="color:#ff1122; font-size:21px;padding-right:7px;" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
                             <td>
                                 <a onclick="soft_delete('<?php echo $data->id; ?>','<?php echo $i; ?>')" data-toggle="modal">
                                     <i title="Delete" class="fa fa-trash-o fa-2x" style="color:#ff1122; font-size:21px;padding-right:7px; color:#225511;"  aria-hidden="true"></i>
@@ -209,6 +211,36 @@
 </div>
 <div class="col-sm-12 col-md-12 col-lg-12">
     <?php echo $this->pagination->create_links();?>
+</div>
+
+<div class="modal fade" id="modal_notes" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Call back Notes</h4>
+            </div>
+            <div class="modal-body">
+                <table id="example1" class="table table-striped table-bordered dt-responsive" cellspacing="0" width="100%" >
+                    <thead>
+                        <tr>
+                            <th>S No.</th>
+                            <th>Note</th>
+                            <th>Status</th>
+                            <th>User</th>
+                            <th>Date added</th>
+                        </tr>
+                    </thead>
+                    <tbody id="notes_body">
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="modal fade" id="modal_edit"  role="dialog">
@@ -644,8 +676,19 @@
 
 <script type="text/javascript">
 
-    function abc(){
-        alert("hello");
+       function abc(v){
+        //alert(v);
+        $(".se-pre-con").show();
+        $.ajax({
+            type:"POST",
+            url: "<?php echo base_url()?>admin/get_notes",
+            data:{id:v},
+            success:function(data){
+               // alert(data);
+                $('#notes_body').html(data);
+                $(".se-pre-con").hide("slow");
+            }
+        });
     }
 
     function edit(v){
