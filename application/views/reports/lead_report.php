@@ -171,11 +171,12 @@
             
            var trid = $(id).parent('tr').children();
            var a=$(trid)[3];
-             var userid= $(a).text();
-             var fromDate=$($(trid)[4]).text();
-             var toDate=$($(trid)[5]).text();
+             var userid= $(a).text().trim();
+             var fromDate=$($(trid)[4]).text().trim();
+             var toDate=$($(trid)[5]).text().trim();
              $("#customer_detail").empty();
-             
+             var weburl=   'http://'+window.location.host+'/admin/lead_report?user_id='+userid+'&fromDate='+fromDate+'&toDate='+toDate
+             console.log(weburl);
              var tbody='';
              var theadtr='';
              
@@ -193,7 +194,7 @@
                     //   $("#customer-theadtr").append(theadtr);
                     for(i=0;i<=data.length-1;i++){
                         
-                    tbody +='<tr><td style="display:none;">'+data[i].lead_source_id+'</td><td class="target" onclick="get_lead_source_id(this)" style="cursor: pointer;">'+data[i].count+'</td><td style="display:none;">'+data[i].user_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td><td>'+data[i].lead_source+'</td></tr>'
+                    tbody +='<tr><td style="display:none;">'+data[i].lead_source_id+'</td><td>'+data[i].lead_source+'</td><td class="target" onclick="get_lead_source_id(this)" style="cursor: pointer;">'+data[i].count+'</td><td style="display:none;">'+data[i].user_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td></tr>'
                 }
                 $("#customer_detail").append(tbody)
                 $("#dispalycmr").removeClass('hidden');
@@ -208,10 +209,10 @@
              function get_lead_source_id(id){
                 // $(".display-lead").hide();
                 var trid = $(id).parent('tr').children();
-                var fromDate=$($(trid)[3]).text();
-                var toDate=$($(trid)[4]).text();
-                var lead_source_id=$($(trid)[0]).text();
-                var user_id=$($(trid)[2]).text();
+                var fromDate=$($(trid)[4]).text().trim();
+                var toDate=$($(trid)[5]).text().trim();
+                var lead_source_id=$($(trid)[0]).text().trim();
+                var user_id=$($(trid)[3]).text().trim();
                
                 $("#product_detail").empty();
                 $("#product-theadtr").empty();
@@ -231,8 +232,8 @@
                     //  theadtr+='<tr><th colspan=2>'+data[0].user_name+'</th></tr><tr><th>Count</th><th>Project Name</th></tr>';
                     //   $("#product-theadtr").append(theadtr);
                     for(i=0;i<=data.length-1;i++){
-                    	var url_of_project = ' https://'+window.location.host+'/admin/lead_report?user_id='+user_id+'&fromDate='+fromDate+'&toDate='+toDate+'&lead_source_id='+lead_source_id+'&project_id='+data[i].project_id;
-                    tbody +='<tr><td style="display:none;">'+data[i].project_id+'</td><td style="display:none;">'+data[i].user_id+'</td><td class="target"><a href="'+url_of_project+'"  target="_blank" style="cursor: pointer;">'+data[i].count+'</a></td><td style="display:none;">'+lead_source_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td><td>'+data[i].project+'</td></tr>'
+                    	var url_of_project = 'http://'+window.location.host+'/admin/lead_report?user_id='+user_id+'&fromDate='+fromDate+'&toDate='+toDate+'&lead_source_id='+lead_source_id+'&project_id='+data[i].project_id;
+                    tbody +='<tr><td style="display:none;">'+data[i].project_id+'</td><td style="display:none;">'+data[i].user_id+'</td><td>'+data[i].project+'</td><td class="target"><a href="'+url_of_project+'"  target="_blank" style="cursor: pointer;">'+data[i].count+'</a></td><td style="display:none;">'+lead_source_id+'</td><td style="display:none;">'+fromDate+'</td><td style="display:none;">'+toDate+'</td></tr>'
                 }
                 $("#product_detail").append(tbody)
                 $("#dispalyprd").removeClass('hidden');
@@ -253,8 +254,9 @@
 				<thead id="customer-thead">
 					<tr><th colspan="2" id="csmrusername"></th></tr>
                     <tr>
+                    <th>Lead Source</th>
                         <th>Count</th>
-                        <th>Lead Source</th>
+                      
 					</tr>
 				</thead>
 				<tbody id="customer_detail"> </tbody>
@@ -267,8 +269,9 @@
 				<thead id="product-thead">
 					<tr><th colspan="2" id="prdusername"></th></tr>
                     <tr>
+                       <th>Project Name</th>
                         <th>Count</th>
-                        <th>Project Name</th>
+                      
 					</tr>
 				</thead>
 				<tbody id="product_detail"> </tbody>
