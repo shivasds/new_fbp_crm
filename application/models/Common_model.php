@@ -674,6 +674,12 @@ class Common_model extends MY_Model {
         return $query->result_array();
 
     }
+    public function emp_loop($value='')
+    {
+        $emp_productivity_loop = "CALL emp_productivity_loop()"; 
+        $result = $this->db->query($emp_productivity_loop);
+        return $result;
+    }
 
 
        }
