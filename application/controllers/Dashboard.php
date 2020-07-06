@@ -78,7 +78,10 @@ class Dashboard extends CI_Controller {
             $data['callsDone'] = $this->callback_model->callbackTrackCountByUserId($data['user_id']);
            $data['calls_assigned_today']=$this->callback_model->get_callbacks_assigned_today($data['user_id']);
             $fetchData = $this->callback_model->get_siteVisitDataByUserId($data['user_id']);
-            
+
+            $data['yesterday_productivuty'] = $this->common_model->yesterday_productivuty_by_id($data['user_id']);
+            //echo $this->db->last_query();
+           // print_r($yesterday_productivuty);die;
             $prArry = array();
             $i = 1;
             foreach ($fetchData as $key => $value) {

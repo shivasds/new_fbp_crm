@@ -313,7 +313,35 @@
 																 
 																 <div class="clearfix"> </div>
 														</div>
-												<?php }
+
+											<div>
+												<h1 align="center">Employee Yesterday's Productivity</h1>
+												<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+													<th>S.no</th>
+													<th>Percentage</th>
+													<th>Status</th>
+													<th>Date</th>
+													<?php
+													$count=1;
+													foreach ($yesterday_productivuty as $tp_data) {
+														echo "<tr>";
+														echo "<td>".$count++."</td>";
+														echo "<td>".$tp_data->percentage."%</td>";
+														echo "<td>".$tp_data->status_name."</td>";
+														echo "<td>".$tp_data->date_added."</td>";
+														echo "</tr>";
+
+													}
+													echo "<tr><td align=center colspan=3>Total</td><td>".$tp_data->lead_count."</td></tr>"
+													?>
+												</table>
+											</div>
+												<?php 
+
+
+
+
+											}
 												elseif ($this->session->userdata('user_type')=="manager"  ) { 
 
         ?>

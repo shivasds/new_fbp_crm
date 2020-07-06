@@ -680,6 +680,17 @@ class Common_model extends MY_Model {
         $result = $this->db->query($emp_productivity_loop);
         return $result;
     }
+    public function yesterday_productivuty_by_id($id='')
+    {
+     $this->db->select('ep.percentage as percentage, ep.lead_count as lead_count, ep.date_added as date_added, s.name  as status_name') 
+            ->from('emp_productivity as ep')
+            ->join('status as s','s.id=ep.status_id','left')
+            ->where('ep.user_id',$id)
+            ->where('ep.date_added',date('Y-m-d',strtotime("-1 days")));
+        
+        return $this->db->get()->result();
+    }
+    
 
 
        }
