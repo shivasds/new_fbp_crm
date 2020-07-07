@@ -316,7 +316,12 @@
 
 											<div>
 												<h1 align="center">Employee Yesterday's Productivity</h1>
-												<table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+												<?php
+												if(count($yesterday_productivuty)>0)
+												{
+													?>
+												
+												<table id="" class="table table-striped table-bordered" cellspacing="0" width="100%">
 													<th>S.no</th>
 													<th>Percentage</th>
 													<th>Status</th>
@@ -335,6 +340,13 @@
 													echo "<tr><td align=center colspan=3>Total</td><td>".$tp_data->lead_count."</td></tr>"
 													?>
 												</table>
+												<?php
+												}
+												else
+												{
+													echo"No data Found";
+												}
+												?>
 											</div>
 												<?php 
 
